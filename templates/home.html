@@ -1,0 +1,70 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>FoodStores</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.css" integrity="sha512-4wfcoXlib1Aq0mUtsLLM74SZtmB73VHTafZAvxIp/Wk9u1PpIsrfmTvK0+yKetghCL8SHlZbMyEcV8Z21v42UQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href={% static 'css/output.css' %} media="all">
+	</head>
+	<body class="dark:bg-darkMain dark:text-darkText">
+        <div class="container__limiter">
+            <h1 class="text-4xl font-semibold text-center mt-32 mb-8">Elections Procedures</h1>
+            <!-- One -->
+            <div class="mb-16">
+                <p class="text-2xl underline mb-3">Get polling unit result</p>
+                <div class="">
+                    <p class="font-semibold mb-2">Polling unit number</p>
+                    <div class="flex items-center space-x-8" method="get">
+                        <input id="poll-number" type="text" class="border-blue-400 border-2 rounded-md px-6 py-6"/>
+                        <a id="poll-result" href="{% url "polling_result" %}" class="px-6 py-2 bg-green-500 text-white font-semibold hover:bg-green-700 rounded-md">View</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Two -->
+            <div class="">
+                <p class="text-2xl underline mb-3">Get LGA result from Polling unit</p>
+                <div class="">
+                    <p class="font-semibold mb-2">LGA</p>
+                    <div class="flex items-center space-x-8">
+                        
+                        <select type="text" class="border-blue-400 border-2 rounded-md px-4 py-2 w-40">
+                            {% for lga in lg %}
+                                <option value={{lga.lga_id}}>{{lga.lga_name}}</option>
+                            {% endfor %}
+                        </select>
+                        <a href="{% url "lga_result_from_pu" %}" class="px-6 py-2 bg-green-500 text-white font-semibold hover:bg-green-700 rounded-md">View</a>
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                
+            </div>
+        </div>
+		<script src={% static 'js/main.js' %}></script>
+        <script>
+            const pollResultBtn = document.getElementById('poll-result')
+            const pollUnitNo = document.getElementById('poll-number')
+
+            pollResultBtn.onclick = (e)=> {
+                e.preventDefault()
+                url = `{% url 'polling_result' %}?pu_number=${pollUnitNo.value} `
+                poll_number = pollUnitNo.value
+                fetch(url)
+                .then(response => {
+                    if (poll_number){
+                        window.location.href = `{% url 'polling_result' %}?pu_number=${poll_number} `
+                    }
+                })
+                .catch(error => console.log(error))
+            }
+        </script>
+	</body>
+
+</html>

@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    .container__limiter{
+        @apply container mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8
+      }
+}

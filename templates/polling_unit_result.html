@@ -1,0 +1,62 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>FoodStores</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href={% static 'css/output.css' %} media="all">
+	</head>
+	<body class="dark:bg-darkMain dark:text-darkText">
+        <div class="container__limiter bg-black mt-44">
+
+            <p class="">Polling Unit name: <span class="">{{pu.polling_unit_name}}</span></p> 
+            {% if pu_result %}           
+            <div class="relative overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                party_abbreviation
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Party Score
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                               Entered By
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Date Entered
+                             </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in pu_result%}
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{result.party_abbreviation}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{result.party_score}} 
+                            </td>
+                            <td class="px-6 py-4">
+                                {{result.entered_by_user}} 
+                            </td>
+                            <td class="px-6 py-4">
+                                {{result.date_entered}} 
+                            </td>                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <h1 class="text-white text-center text-lg font-semibold">No data</h1>
+            {% endif %}
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
+    </body>
+</html> 
